@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Lab;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreLabRequest;
@@ -16,7 +17,7 @@ class LabController extends Controller
      */
     public function index()
     {
-        $lab = DB::table('lab')->get();
+        $lab = Lab::all();
         return view('lab.index', [
             'lab' => $lab
         ]);
@@ -29,7 +30,7 @@ class LabController extends Controller
      */
     public function create()
     {
-        //
+        return view('lab.add');
     }
 
     /**
@@ -40,7 +41,15 @@ class LabController extends Controller
      */
     public function store(StoreLabRequest $request)
     {
-        //
+        $this->validate($request, [
+            'nama_lab' => 'required'
+        ]);
+
+        $lab = new Lab;
+        $lab->nama_lab = $request->input('nama_lab');
+        $lab->created_at = Carbon::now();
+        $lab->save();
+        return redirect('/modul/lab')->with('success', "New Lab has been created!");
     }
 
     /**
@@ -60,9 +69,10 @@ class LabController extends Controller
      * @param  \App\Models\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lab $lab)
+    public function edit($id)
     {
-        //
+        $lab = Lab::find($id);
+        return view('lab.edit', ['lab' => $lab]);
     }
 
     /**
@@ -72,9 +82,17 @@ class LabController extends Controller
      * @param  \App\Models\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLabRequest $request, Lab $lab)
+    public function update(UpdateLabRequest $request)
     {
-        //
+        $this->validate($request, [
+            'nama_lab' => 'required'
+        ]);
+
+        Lab::where('id', $request->id)->update([
+            'nama_lab' => $request->input('nama_lab'),
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect('/modul/lab')->with('success', 'Update Lab Successfull!');
     }
 
     /**
@@ -83,8 +101,9 @@ class LabController extends Controller
      * @param  \App\Models\Lab  $lab
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lab $lab)
+    public function destroy($id)
     {
-        //
+        Lab::where('id', $id)->delete();
+        return redirect('/modul/lab')->with('success', 'Delete Lab Successfull!');
     }
 }

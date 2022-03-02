@@ -13,6 +13,10 @@
 
     <link rel="stylesheet" href="{{ asset('desain/admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('desain/admin/assets/css/app.css') }}">
+    
+    {{-- Table CSs --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/table.css') }}">
 
     <link rel="stylesheet" href="{{ asset('desain/admin/assets/vendors/simple-datatables/style.css') }}">
 </head>
@@ -31,25 +35,14 @@
 
 
                         <li class='sidebar-title'>Main Menu</li>
-
-
-
-                        <li class="sidebar-item <?php if( $_SERVER["REQUEST_URI"]== "/club/"){
-                            echo "active";
-                        }
                             
-                        ?>">
                             <a href="/" class='sidebar-link'>
                                 <i data-feather="home" width="20"></i>
                                 <span>Dashboard</span>
                             </a>
 
                         </li>
-                        <li class="sidebar-item" <?php if( $_SERVER["REQUEST_URI"]== "/club/modul/mahasiswa/"){
-                            echo "active";
-                        }
-                            
-                        ?>>
+
                             <a href="/modul/lab" class='sidebar-link'>
                                 <i data-feather="airplay" width="20"></i>
                                 <span>Lab</span>
@@ -119,33 +112,33 @@
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                                    <!-- <div class="float-start">
-                                        <p>2021 &copy; CERC</p>
-                                    </div>
-                                    <div class="float-end">
-                                        <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a
-                                                href="#">CERC</a></p>
-                                    </div> -->
-                                    <div class="float-start">
-                                        <p>2021 &copy; CERC</p>
-                                    </div>
-                                    <div class="float-end">
-                                        <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a
-                                                href="#">CERC</a></p>
-                                    </div>
-                                </div>
-                            </footer>             
-                            <script src="{{ asset('desain/admin/assets/js/feather-icons/feather.min.js') }}"></script>
-                    <script src="{{ asset('desain/admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-                    <script src="{{ asset('desain/admin/assets/js/app.js') }}"></script>
-                
-                    <script src="{{ asset('desain/admin/assets/vendors/chartjs/Chart.min.js') }}"></script>
-                    <script src="{{ asset('desain/admin/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
-                    <script src="{{ asset('desain/admin/assets/js/pages/dashboard.js') }}"></script>
-                
-                    <script src="{{ asset('desain/admin/assets/js/main.js') }}"></script>
-                    
-                    <script src="{{ asset('desain/admin/assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
+                        <!-- <div class="float-start">
+                            <p>2021 &copy; CERC</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a
+                                    href="#">CERC</a></p>
+                        </div> -->
+                        <div class="float-start">
+                            <p>2021 &copy; CERC</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a
+                                    href="#">CERC</a></p>
+                        </div>
+                    </div>
+                </footer>             
+                <script src="{{ asset('desain/admin/assets/js/feather-icons/feather.min.js') }}"></script>
+        <script src="{{ asset('desain/admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('desain/admin/assets/js/app.js') }}"></script>
+    
+        <script src="{{ asset('desain/admin/assets/vendors/chartjs/Chart.min.js') }}"></script>
+        <script src="{{ asset('desain/admin/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('desain/admin/assets/js/pages/dashboard.js') }}"></script>
+    
+        <script src="{{ asset('desain/admin/assets/js/main.js') }}"></script>
+        
+        <script src="{{ asset('desain/admin/assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
                     
         </div>
     </div>

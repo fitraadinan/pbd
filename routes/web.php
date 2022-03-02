@@ -24,8 +24,15 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', [HomeController::class, 'index']);
 
-    Route::get('/modul/lab', [LabController::class, 'index']);   
+    Route::get('/modul/lab', [LabController::class, 'index']);
+    Route::post('/modul/lab', [LabController::class, 'store']);
+    Route::get('/modul/lab/add', [LabController::class, 'create']);
+    Route::get('/modul/lab/edit/{id}', [LabController::class, 'edit']);
+    Route::post('/modul/lab/update', [LabController::class, 'update']);
+    Route::get('/modul/lab/delete/{id}', [LabController::class, 'destroy']);
+
     Route::get('/modul/club', [ClubController::class, 'index']);
+    
     Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);
 });
 
