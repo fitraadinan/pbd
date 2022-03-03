@@ -39,5 +39,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/modul/club/delete/{id}', [ClubController::class, 'destroy']);
     
     Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::post('/modul/mahasiswa', [MahasiswaController::class, 'store']);
+    Route::get('/modul/mahasiswa/add', [MahasiswaController::class, 'create']);
+    Route::get('/modul/mahasiswa/edit/{id}', [MahasiswaController::class, 'edit']);
+    Route::post('/modul/mahasiswa/update', [MahasiswaController::class, 'update']);
+    Route::get('/modul/mahasiswa/delete/{id}', [MahasiswaController::class, 'destroy']);
 });
 

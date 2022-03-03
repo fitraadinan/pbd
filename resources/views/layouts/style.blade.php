@@ -27,7 +27,6 @@
         <div id="sidebar" class='active'>
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
-                    <img src="{{ asset('desain/admin/assets/images/logo.svg') }}" alt="" srcset="">
                     CERC
                 </div>
                 <div class="sidebar-menu">
