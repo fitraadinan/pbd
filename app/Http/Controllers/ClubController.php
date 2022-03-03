@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Club;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClubRequest;
@@ -16,7 +17,11 @@ class ClubController extends Controller
      */
     public function index()
     {
-        $club = DB::table('club')->get();
+        // $club = DB::table('club')->get();
+        // return view('club.index', [
+        //     'club' => $club
+        // ]);
+        $club = Club::all();
         return view('club.index', [
             'club' => $club
         ]);
@@ -29,7 +34,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        //
+        return view('club.add');
     }
 
     /**
@@ -40,7 +45,19 @@ class ClubController extends Controller
      */
     public function store(StoreClubRequest $request)
     {
-        //
+        $this->validate($request, [
+            'nama_club' => 'required',
+            'hari' => 'required',
+            'jam' => 'required',
+        ]);
+
+        $club = new Club;
+        $club->nama_club = $request->input('nama_club');
+        $club->hari = $request->input('hari');
+        $club->jam = $request->input('jam');
+        $club->created_at = Carbon::now();
+        $club->save();
+        return redirect('/modul/club')->with('success', "New Club has been created!");
     }
 
     /**
@@ -60,9 +77,10 @@ class ClubController extends Controller
      * @param  \App\Models\Club  $club
      * @return \Illuminate\Http\Response
      */
-    public function edit(Club $club)
+    public function edit($id)
     {
-        //
+        $club = Club::find($id);
+        return view('club.edit', ['club' => $club]);
     }
 
     /**
@@ -74,7 +92,19 @@ class ClubController extends Controller
      */
     public function update(UpdateClubRequest $request, Club $club)
     {
-        //
+        $this->validate($request, [
+            'nama_club' => 'required',
+            'hari' => 'required',
+            'jam' => 'required'
+        ]);
+
+        Club::where('id', $request->id)->update([
+            'nama_club' => $request->input('nama_club'),
+            'hari' => $request->input('hari'),
+            'jam' => $request->input('jam'),
+            'updated_at' => Carbon::now(),
+        ]);
+        return redirect('/modul/club')->with('success', 'Update Club Successfull!');
     }
 
     /**

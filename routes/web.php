@@ -32,6 +32,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/modul/lab/delete/{id}', [LabController::class, 'destroy']);
 
     Route::get('/modul/club', [ClubController::class, 'index']);
+    Route::post('/modul/club', [ClubController::class, 'store']);
+    Route::get('/modul/club/add', [ClubController::class, 'create']);
+    Route::get('/modul/club/edit/{id}', [ClubController::class, 'edit']);
+    Route::post('/modul/club/update', [ClubController::class, 'update']);
+    Route::get('/modul/club/delete/{id}', [ClubController::class, 'destroy']);
     
     Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);
 });

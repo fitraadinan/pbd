@@ -9,32 +9,30 @@
     
     <div class="row mb-4">
         <div class="col-md-12">
-            
+            @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <a href="/modul/club/tambah.php"><h4 class="card-title">
-                        
+                    <a href="{{ url('modul/club/add') }}"><h4 class="card-title">
+                                        
                     <button class="btn btn-primary">Tambah</button>
                     </h4></a>
                 </div>
 
                 <div class="card-body">
-                    <div class="row">
+                    {{-- <div class="row">
                         <form action="">
                             <div class="col-lg-12 mb-1">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Urutkan Berdasarkan</span>
                                     <select class="form-select" name="orderBy" id="basicSelect">
                                         <?php if(isset( $_GET['orderBy'])):?>
-                                            <option value="nama_club" <?php echo $_GET['orderBy']=="nama_club"?"selected":""?>>Nama Club</option>
-                                            <option value="hari" <?php echo $_GET['orderBy']=="hari"?"selected":""?>>Hari</option>
-                                            <option value="jam" <?php echo $_GET['orderBy']=="jam"?"selected":""?>>Jam</option>
-                                            <option value="nama_lab" <?php echo $_GET['orderBy']=="nama_lab"?"selected":""?>>Lab</option>
+                                            <option value="nama_lab" <?php echo $_GET['orderBy']=="nama_lab"?"selected":""?>>Nama Lab</option>
                                         <?php else:?>
-                                            <option value="nama_club">Nama Club</option>
-                                            <option value="hari">Hari</option>
-                                            <option value="jam">Jam</option>
-                                            <option value="nama_lab">Lab</option>
+                                            <option value="nama_lab">Nama Lab</option>
                                         <?php endif?>
                                     </select>
                                     <select class="form-select" name="jenis" id="basicSelect">
@@ -48,11 +46,11 @@
                                     </select>
                                     <span class="input-group-text" id="basic-addon1">Cari Berdasarkan Keyword</span>
                                     <?php if(isset( $_GET['keyword'])):?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Club"
-                                        aria-clubel="keyword" value="<?php echo  $_GET['keyword']?>"  name="keyword" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
+                                        aria-label="keyword" value="<?php echo  $_GET['keyword']?>"  name="keyword" aria-describedby="basic-addon1">
                                     <?php else:?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Club/Hari/Nama Lab"
-                                        aria-clubel="keyword"  name="keyword" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
+                                        aria-label="keyword"  name="keyword" aria-describedby="basic-addon1">
                                     <?php endif?>
                                     
                                     <button type="submit" class="btn btn-sm btn-primary">Proses</button>    
@@ -60,7 +58,7 @@
                             </div>
                         </form>
                    
-                    </div>
+                    </div> --}}
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>
@@ -74,54 +72,88 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                if(isset($_GET['orderBy'])){
-                                    if(isset($_GET['keyword']) && $_GET['keyword']!="" ){
-                                        $keyword = $_GET['keyword'];
-                                        $orderby = $_GET['orderBy'];
-                                        $jenis = $_GET['jenis'];
-                                        $data = mysqli_query($koneksi,"select * from club join lab on lab_idlab=idlab where (nama_club like '%$keyword%' or hari like '%$keyword%' or nama_lab like '%$keyword%')  order by $orderby $jenis");
-                                        
-                                    }else{
-                                        $orderby = $_GET['orderBy'];
-                                        $jenis = $_GET['jenis'];
-                                        $data = mysqli_query($koneksi,"select * from club join lab on lab_idlab=idlab order by $orderby $jenis ");
-                                
-                                    }
-                                    
-                                }else{
-                                    $data = mysqli_query($koneksi,"select * from club join lab on lab_idlab=idlab order by nama_club ASC");
-                                
-                                }
-                                $no = 1;
-                                while($d = mysqli_fetch_array($data)){
-                                    ?>
+                                @foreach ($club as $index => $club)
                                     <tr>
-                                        <td><?php echo $no?></td>
-                                        <td><?php echo $d['nama_club']?></td>
-                                        <td><?php echo $d['hari']?></td>
-                                        <td><?php echo $d['jam']?></td>
-                                        <td><?php echo $d['nama_lab']?></td>
+                                        <td>{{ $index +1 }}</td>
+                                        <td>{{ $club->nama_club }}</td>
+                                        <td>{{ $club->hari }}</td>
+                                        <td>{{ $club->jam }}</td>
+                                        <td>{{ $club->lab }}</td>
                                         <td>
                                             <div class="btn-group">
 
-                                            <a href="/modul/club/edit.php/">"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                                <a href="/modul/club/aksi_hapus.php/""><button class="btn btn-sm btn-danger"> <i data-feather="trash" width="20"></i></button>  </a> 
+                                            <a href="{{ url('/modul/club/edit/'.$club->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
+                                                <a href="{{ url('/modul/club/delete/'.$club->id) }}"><button class="btn btn-sm btn-danger"> <i data-feather="trash" width="20"></i></button>  </a> 
 
                                             </div>
                                         </td>
-                                        
                                     </tr>
-                                    <?php 
-                                    $no++;
-                                }?>
-
-                                
-                                
+                                    @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
+                {{-- <div class="card-body px-0 pb-0">
+                    <div class="panel mx-4 mb-3">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <a href="{{ url('/modul/lab/add') }}" class="btn btn-sm btn-primary pull-left"><i class="fa fa-plus-circle"></i> Add New</a>
+                                    <form class="form-horizontal pull-right">
+                                        <div class="form-group">
+                                            <label>Show : </label>
+                                            <select class="form-control">
+                                                <option>5</option>
+                                                <option>10</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-2">No</th>
+                                        <th class="col-10">Lab Name</th>
+                                        <th class="col-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                        @foreach ($lab as $index => $lab)
+                                        <tr>
+                                            <td>{{ $index +1 }}</td>
+                                            <td>{{ $lab->nama_lab }}</td>
+                                            <td>
+                                                <ul class="action-list">
+                                                    <li><a href="{{ url('/modul/lab/edit/'.$lab->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></li>
+                                                    <li><a href="{{ url('/modul/lab/delete/'.$lab->id) }}" onclick="return confirm('yakin?');" class="btn btn-danger"><i class="fa fa-times"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
+                                <div class="col-sm-6 col-xs-6">
+                                    <ul class="pagination hidden-xs pull-right">
+                                        <li><a href="#" class="p-2">«</a></li>
+                                        <li class="active"><a href="#" class="p-2">1</a></li>
+                                        <li><a href="#" class="p-2">2</a></li>
+                                        <li><a href="#" class="p-2">3</a></li>
+                                        <li><a href="#" class="p-2">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
         </div>
     </div>

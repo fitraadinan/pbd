@@ -120,7 +120,7 @@
                                     href="#">CERC</a></p>
                         </div> -->
                         <div class="float-start">
-                            <p>2021 &copy; CERC</p>
+                            <p>2022 &copy; CERC</p>
                         </div>
                         <div class="float-end">
                             <p>Crafted with <span class='text-danger'><i data-feather="heart"></i></span> by <a

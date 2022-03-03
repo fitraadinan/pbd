@@ -20,7 +20,7 @@ class ClubSeeder extends Seeder
             'hari' => 'Senin',
             'jam' => '15:00:00',
             'lab_id' => '1',
-            'created_by' => Auth::user()->name,
+            'created_by' => 'Admin',
         ]);
     }
 }
