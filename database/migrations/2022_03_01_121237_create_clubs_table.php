@@ -15,12 +15,13 @@ class CreateClubsTable extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_club');
+            $table->string('club_name');
             $table->string('hari');
             $table->time('jam');
-            $table->foreignId('lab_id');
-            $table->string('created_by');
-            $table->timestamps();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

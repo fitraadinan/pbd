@@ -20,7 +20,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Nama Club</span>
                                     <input type="text" class="form-control" placeholder="Masukkan Nama Club"
-                                        aria-clubel="nama_club" required name="nama_club" aria-describedby="basic-addon1">
+                                        aria-clubel="club_name" required name="club_name" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col-lg-3 mb-1">
@@ -41,24 +41,22 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Jam</span>
                                     <input type="time" class="form-control" placeholder="Masukkan Nama Club"
-                                        aria-clubel="nama_club" required name="jam" aria-describedby="basic-addon1">
+                                        aria-clubel="jam" required name="jam" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col-lg-3 mb-1">
-                                {{-- <div class="input-group mb-3">
+                                <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Lab</span>
                                     <select class="form-select" name="lab" id="basicSelect" required>
-                                        <?php
-                                            $data = mysqli_query($koneksi,"select * from lab left join club on lab_idlab=idlab");
-                                            $no = 1;
-                                            while($d = mysqli_fetch_array($data)){
-                                        ?>
-                                            <?php if($d['idclub']==NULL):?>
-                                                <option value="<?php echo $d['idlab']?>"><?php echo $d['nama_lab']?></option>
-                                            <?php endif?>
-                                        <?php } ?>
+                                        <option>Pilih Lab</option>
+                                        @foreach ($lab as $labs)
+                                        @if($labs->club_id == null)
+                                        <option value="{{ $labs->id }}">{{ $labs->lab_name }}</option>
+                                        @endif
+                                        @endforeach
+                                        
                                     </select>
-                                </div> --}}
+                                </div>
                             </div>
 
                         </div>

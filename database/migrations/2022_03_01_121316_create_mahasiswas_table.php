@@ -19,9 +19,11 @@ class CreateMahasiswasTable extends Migration
             $table->string('nama');
             $table->string('th_masuk');
             $table->string('no_telepon');
-            $table->string('admin_id');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->string('club_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.style')
 @section('content')
     <div class="page-title">
-        <h3>Tambah Data Club</h3>
+        <h3>Edit Data Club</h3>
     </div>
     <section class="section">
         
@@ -22,7 +22,7 @@
                                         <input class="form-control" type="hidden" name="id" id="id" value="{{ $club->id }}">
                                         <span class="input-group-text" id="basic-addon1">Nama Club</span>
                                         <input type="text" class="form-control" placeholder="Masukkan Nama Club"
-                                            aria-label="nama_club" required name="nama_club" aria-describedby="basic-addon1" value="{{ $club->nama_club }}">
+                                            aria-label="nama_club" required name="club_name" aria-describedby="basic-addon1" value="{{ $club->club_name }}">
                                             @error('nama_club')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -34,12 +34,12 @@
                                         <span class="input-group-text" id="basic-addon1">Hari</span>
                                         <select class="form-select" name="hari" id="basicSelect">
                                             <option value="Senin">Senin</option>
-                                            <option value="Senin">Selasa</option>
-                                            <option value="Senin">Rabu</option>
-                                            <option value="Senin">Kamis</option>
-                                            <option value="Senin">Jumat</option>
-                                            <option value="Senin">Sabtu</option>
-                                            <option value="Senin">Minggu</option>
+                                            <option value="Selasa">Selasa</option>
+                                            <option value="Rabu">Rabu</option>
+                                            <option value="Kamis">Kamis</option>
+                                            <option value="Jumat">Jumat</option>
+                                            <option value="Sabtu">Sabtu</option>
+                                            <option value="Minggu">Minggu</option>
                                         </select>
                                     </div>
                                 </div>

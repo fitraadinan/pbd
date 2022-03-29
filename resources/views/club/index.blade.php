@@ -23,42 +23,6 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- <div class="row">
-                        <form action="">
-                            <div class="col-lg-12 mb-1">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Urutkan Berdasarkan</span>
-                                    <select class="form-select" name="orderBy" id="basicSelect">
-                                        <?php if(isset( $_GET['orderBy'])):?>
-                                            <option value="nama_lab" <?php echo $_GET['orderBy']=="nama_lab"?"selected":""?>>Nama Lab</option>
-                                        <?php else:?>
-                                            <option value="nama_lab">Nama Lab</option>
-                                        <?php endif?>
-                                    </select>
-                                    <select class="form-select" name="jenis" id="basicSelect">
-                                        <?php if(isset( $_GET['jenis'])):?>
-                                            <option value="ASC" <?php echo $_GET['jenis']=="ASC"?"selected":""?>>Ascending</option>
-                                            <option value="DESC" <?php echo $_GET['jenis']=="DESC"?"selected":""?>>Descending</option>
-                                        <?php else:?>
-                                            <option value="ASC">Ascending</option>
-                                            <option value="DESC">Descending</option>
-                                        <?php endif?>
-                                    </select>
-                                    <span class="input-group-text" id="basic-addon1">Cari Berdasarkan Keyword</span>
-                                    <?php if(isset( $_GET['keyword'])):?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                        aria-label="keyword" value="<?php echo  $_GET['keyword']?>"  name="keyword" aria-describedby="basic-addon1">
-                                    <?php else:?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                        aria-label="keyword"  name="keyword" aria-describedby="basic-addon1">
-                                    <?php endif?>
-                                    
-                                    <button type="submit" class="btn btn-sm btn-primary">Proses</button>    
-                                </div>
-                            </div>
-                        </form>
-                   
-                    </div> --}}
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>
@@ -74,16 +38,16 @@
                             <tbody>
                                 @foreach ($club as $index => $club)
                                     <tr>
-                                        <td>{{ $index +1 }}</td>
-                                        <td>{{ $club->nama_club }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $club->club_name }}</td>
                                         <td>{{ $club->hari }}</td>
                                         <td>{{ $club->jam }}</td>
-                                        <td>{{ $club->lab }}</td>
+                                        <td>{{ $club->lab->lab_name }}</td>
                                         <td>
                                             <div class="btn-group">
 
                                             <a href="{{ url('/modul/club/edit/'.$club->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                                <a href="{{ url('/modul/club/delete/'.$club->id) }}"><button class="btn btn-sm btn-danger"> <i data-feather="trash" width="20"></i></button>  </a> 
+                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button>  
 
                                             </div>
                                         </td>
@@ -92,6 +56,28 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="modaldeleteLabel">Hapus Dat Club</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            Apakan Anda yakin ingin menghapus data club?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <a href="/modul/club/delete/{{ $club->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
                 </div>
                 {{-- <div class="card-body px-0 pb-0">
                     <div class="panel mx-4 mb-3">

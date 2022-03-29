@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Club;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreMahasiswaRequest;
@@ -21,7 +22,7 @@ class MahasiswaController extends Controller
         // return view('mahasiswa.index', [
         //     'mahasiswa' => $mahasiswa
         // ]);
-        $mahasiswa = Mahasiswa::all();
+        $mahasiswa = Mahasiswa::with('club')->get();
         return view('mahasiswa.index', [
             'mahasiswa' => $mahasiswa
         ]);
@@ -34,7 +35,12 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.add');
+        $mahasiswa = Mahasiswa::with('club')->get();
+        $club=Club::all();
+        return view('mahasiswa.add', [
+            'mahasiswa' => $mahasiswa,
+            'club' => $club,
+        ]);
     }
 
     /**
@@ -56,6 +62,9 @@ class MahasiswaController extends Controller
         $mahasiswa->nim = $request->input('nim');
         $mahasiswa->nama = $request->input('nama');
         $mahasiswa->th_masuk = $request->input('th_masuk');
+        $mahasiswa->no_telepon = $request->input('no_telepon');
+        $mahasiswa->club_id = $request->input('club');
+        $mahasiswa->created_by = auth()->user()->name;
         $mahasiswa->created_at = Carbon::now();
         $mahasiswa->save();
         return redirect('/modul/mahasiswa')->with('success', "New Mahasiswa has been created!");
@@ -100,13 +109,15 @@ class MahasiswaController extends Controller
             'no_telepon' => 'no_telepon'
         ]);
 
-        Mahasiswa::where('id', $request->id)->update([
-            'nim' => $request->input('nim'),
-            'nama' => $request->input('nama'),
-            'th_masuk' => $request->input('jth_masukam'),
-            'no_telepon' => $request->input('no_telepon'),
-            'updated_at' => Carbon::now(),
-        ]);
+        $mahasiswa = Mahasiswa::find($request->id);
+        $mahasiswa->nim = $request->input('nim');
+        $mahasiswa->nama = $request->input('nama');
+        $mahasiswa->th_masuk = $request->input('th_masuk');
+        $mahasiswa->no_telepon = $request->input('no_telepon');
+        $mahasiswa->club_id = $request->input('club');
+        $mahasiswa->updated_by = auth()->user()->name;
+        $mahasiswa->updated_at = Carbon::now();
+        $mahasiswa->update();
         return redirect('/modul/mahasiswa')->with('success', 'Update Mahasiswa Successfull!');
     }
 
@@ -116,8 +127,9 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy($id)
     {
-        //
+        Mahasiswa::find($id)->delete();
+        return redirect('/modul/mahasiswa')->with('success', 'Delete Mahasiswa Successfull.');
     }
 }
