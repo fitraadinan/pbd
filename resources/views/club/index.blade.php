@@ -36,18 +36,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($club as $index => $club)
+                                @foreach ($club as $index => $clubs)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $club->club_name }}</td>
-                                        <td>{{ $club->hari }}</td>
-                                        <td>{{ $club->jam }}</td>
-                                        <td>{{ $club->lab->lab_name }}</td>
+                                        <td>{{ $clubs->club_name }}</td>
+                                        <td>{{ $clubs->hari }}</td>
+                                        <td>{{ $clubs->jam }}</td>
+                                        <td>{{ $clubs->lab->lab_name }}</td>
                                         <td>
                                             <div class="btn-group">
 
-                                            <a href="{{ url('/modul/club/edit/'.$club->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button>  
+                                            <a href="{{ url('/modul/club/edit/'.$clubs->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
+                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldeleteclub-{{ $clubs->id }}"> <i data-feather="trash" width="20"></i></button>  
 
                                             </div>
                                         </td>
@@ -56,29 +56,31 @@
                             </tbody>
                         </table>
                     </div>
+                    @foreach ($club as $clubs)
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                    <div class="modal fade" id="modaldeleteclub-{{ $clubs->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="modaldeleteLabel">Hapus Data Club {{ $club->club_name }}</h5>
+                            <h5 class="modal-title" id="modaldeleteLabel">Hapus Data Club {{ $clubs->club_name }}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
                             <div class="modal-body">
-                            Apakan Anda yakin ingin menghapus data club {{ $club->club_name }}?
-                            <input type="hidden" name="club" value="{{ $club->id }}">
+                            Apakan Anda yakin ingin menghapus data club {{ $clubs->club_name }}?
+                            <input type="hidden" name="club" value="{{ $clubs->id }}">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <a href="/modul/club/delete/{{ $club->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
+                            <a href="/modul/club/delete/{{ $clubs->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
                             </div>
                         </div>
                         </div>
                     </div>
-
+                        
+                    @endforeach
                 </div>
                 {{-- <div class="card-body px-0 pb-0">
                     <div class="panel mx-4 mb-3">
