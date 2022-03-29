@@ -20,14 +20,14 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Nim</span>
                                     <input type="text" class="form-control" placeholder="Masukkan NIM"
-                                        aria-mahasiswael="nim_mahasiswa" required name="nim" aria-describedby="basic-addon1">
+                                        aria-mahasiswael="nim" required name="nim" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col-lg-4 mb-1">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Nama Mahasiswa</span>
                                     <input type="text" class="form-control" placeholder="Masukkan Nama Mahasiswa"
-                                        aria-mahasiswael="nama_mahasiswa" required name="nama_mahasiswa" aria-describedby="basic-addon1">
+                                        aria-mahasiswael="nama" required name="nama" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                            
@@ -35,7 +35,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Tahun Masuk</span>
                                     <input type="text" class="form-control" placeholder="Tahun Masuk"
-                                        aria-mahasiswael="tahun_masuk" required name="tahun_masuk" aria-describedby="basic-addon1">
+                                        aria-mahasiswael="th_masuk" required name="th_masuk" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             
@@ -47,21 +47,17 @@
                                         aria-mahasiswael="no_telepon" required name="no_telepon" aria-describedby="basic-addon1">
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-4 mb-1">
+                            <div class="col-lg-4 mb-1">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Club</span>
                                     <select class="form-select" name="club" id="basicSelect" required>
-                                        <?php
-                                            $data = mysqli_query($koneksi,"select * from club");
-                                            $no = 1;
-                                            while($d = mysqli_fetch_array($data)){
-                                        ?>
-                                            
-                                            <option value="<?php echo $d['idclub']?>"><?php echo $d['nama_club']?></option>
-                                        <?php } ?>
+                                       <option value="">Pilih club</option>
+                                       @foreach ($club as $clubs)
+                                           <option value="{{ $clubs->id }}">{{ $clubs->club_name}}</option>
+                                       @endforeach
                                     </select>
                                 </div>
-                            </div> --}}
+                            </div>
 
                         </div>
                     </div>

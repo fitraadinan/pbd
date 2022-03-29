@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Lab;
 use App\Models\Club;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClubRequest;
@@ -20,7 +21,7 @@ class ClubController extends Controller
         // $club = DB::table('club')->get();
         // return view('club.index', [
         //     'club' => $club
-        // ]);
+        // ]);php
         $club = Club::all();
         return view('club.index', [
             'club' => $club
@@ -34,7 +35,12 @@ class ClubController extends Controller
      */
     public function create()
     {
-        return view('club.add');
+        $club = Club::all();
+        $lab = Lab::all();
+        return view('club.add', [
+            'club' => $club,
+            'lab' => $lab,
+        ]);
     }
 
     /**
@@ -46,17 +52,22 @@ class ClubController extends Controller
     public function store(StoreClubRequest $request)
     {
         $this->validate($request, [
-            'nama_club' => 'required',
+            'club_name' => 'required',
             'hari' => 'required',
             'jam' => 'required',
         ]);
 
         $club = new Club;
-        $club->nama_club = $request->input('nama_club');
+        $club->club_name = $request->input('club_name');
         $club->hari = $request->input('hari');
         $club->jam = $request->input('jam');
         $club->created_at = Carbon::now();
+        $club->created_by = auth()->user()->name;
         $club->save();
+        $lab = Lab::find($request->input('lab'));
+        $lab->club_id = $club->id;
+        $lab->created_at = Carbon::now();
+        $lab->update();
         return redirect('/modul/club')->with('success', "New Club has been created!");
     }
 
@@ -93,13 +104,13 @@ class ClubController extends Controller
     public function update(UpdateClubRequest $request, Club $club)
     {
         $this->validate($request, [
-            'nama_club' => 'required',
+            'club_name' => 'required',
             'hari' => 'required',
             'jam' => 'required'
         ]);
 
         Club::where('id', $request->id)->update([
-            'nama_club' => $request->input('nama_club'),
+            'club_name' => $request->input('club_name'),
             'hari' => $request->input('hari'),
             'jam' => $request->input('jam'),
             'updated_at' => Carbon::now(),
@@ -113,8 +124,10 @@ class ClubController extends Controller
      * @param  \App\Models\Club  $club
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Club $club)
+    public function destroy($id)
     {
-        //
+        Club::find($id)->delete();
+        $lab=Lab::find($id)
+        return redirect('/modul/club')->with('success', 'Delete Club Successfull.');
     }
 }

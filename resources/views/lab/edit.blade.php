@@ -1,7 +1,7 @@
 @extends('layouts.style')
 @section('content')
     <div class="page-title">
-        <h3>Tambah Data Lab</h3>
+        <h3>Edit Data Lab</h3>
     </div>
     <section class="section">
         
@@ -22,8 +22,8 @@
                                         <input class="form-control" type="hidden" name="id" id="id" value="{{ $lab->id }}">
                                         <span class="input-group-text" id="basic-addon1">Nama Lab</span>
                                         <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                            aria-label="nama_lab" required name="nama_lab" aria-describedby="basic-addon1" value="{{ $lab->nama_lab }}">
-                                            @error('nama_lab')
+                                            aria-label="lab_name" required name="lab_name" aria-describedby="basic-addon1" value="{{ $lab->lab_name }}">
+                                            @error('lab_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                     </div>

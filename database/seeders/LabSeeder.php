@@ -14,6 +14,6 @@ class LabSeeder extends Seeder
      */
     public function run()
     {
-        Lab::create(['nama_lab' => 'Lab Multimedia']);
+        Lab::create(['lab_name' => 'Lab Multimedia', 'club_id' => 1]);
     }
 }

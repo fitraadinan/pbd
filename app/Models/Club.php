@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Club extends Model
 {
     use HasFactory;
+    protected $table = 'clubs';
+    protected $guarded = ['id'];
+
+    public function lab()
+    {
+        return $this->hasOne('\App\Models\Lab');
+    }
+    
 }

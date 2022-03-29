@@ -16,10 +16,9 @@ class ClubSeeder extends Seeder
     public function run()
     {
         Club::create([
-            'nama_club' => 'Multimedia',
+            'club_name' => 'Multimedia',
             'hari' => 'Senin',
             'jam' => '15:00:00',
-            'lab_id' => '1',
             'created_by' => 'Admin',
         ]);
     }

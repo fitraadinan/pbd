@@ -21,7 +21,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Nama Lab</span>
                                         <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                            aria-label="nama_lab" required name="nama_lab" aria-describedby="basic-addon1">
+                                            aria-label="lab_name" required name="lab_name" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                         

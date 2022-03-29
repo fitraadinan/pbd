@@ -42,11 +42,11 @@ class LabController extends Controller
     public function store(StoreLabRequest $request)
     {
         $this->validate($request, [
-            'nama_lab' => 'required'
+            'lab_name' => 'required'
         ]);
 
         $lab = new Lab;
-        $lab->nama_lab = $request->input('nama_lab');
+        $lab->lab_name = $request->input('lab_name');
         $lab->created_at = Carbon::now();
         $lab->save();
         return redirect('/modul/lab')->with('success', "New Lab has been created!");
@@ -85,11 +85,11 @@ class LabController extends Controller
     public function update(UpdateLabRequest $request)
     {
         $this->validate($request, [
-            'nama_lab' => 'required'
+            'lab_name' => 'required'
         ]);
 
-        Lab::where('id', $request->id)->update([
-            'nama_lab' => $request->input('nama_lab'),
+        Lab::find($request->id)->update([
+            'lab_name' => $request->input('lab_name'),
             'updated_at' => Carbon::now(),
         ]);
         return redirect('/modul/lab')->with('success', 'Update Lab Successfull!');
