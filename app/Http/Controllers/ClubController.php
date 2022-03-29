@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Lab;
 use App\Models\Club;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClubRequest;
 use App\Http\Requests\UpdateClubRequest;
@@ -49,7 +50,7 @@ class ClubController extends Controller
      * @param  \App\Http\Requests\StoreClubRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClubRequest $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'club_name' => 'required',
@@ -101,7 +102,7 @@ class ClubController extends Controller
      * @param  \App\Models\Club  $club
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClubRequest $request, Club $club)
+    public function update(Request $request, Club $club)
     {
         $this->validate($request, [
             'club_name' => 'required',
@@ -127,7 +128,9 @@ class ClubController extends Controller
     public function destroy($id)
     {
         Club::find($id)->delete();
-        $lab=Lab::find($id);
+        Lab::where('club_id', $id)->update([
+            'club_id' => null,
+        ]);
         return redirect('/modul/club')->with('success', 'Delete Club Successfull.');
     }
 }

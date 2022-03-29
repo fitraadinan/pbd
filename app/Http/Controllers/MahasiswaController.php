@@ -87,10 +87,14 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $id)
+    public function edit($id)
     {
         $mahasiswa = Mahasiswa::find($id);
-        return view('mahasiswa.edit', ['mahasiswa' => $mahasiswa]);
+        $club=Club::all();
+        return view('mahasiswa.edit', [
+            'mahasiswa' => $mahasiswa,
+            'club' => $club,
+        ]);
     }
 
     /**
@@ -100,21 +104,21 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
+    public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa, $id)
     {
         $this->validate($request, [
-            'nim' => 'nim',
-            'nama' => 'nama',
-            'th_masuk' => 'th_masuk',
-            'no_telepon' => 'no_telepon'
+            'nim' => 'required',
+            'nama' => 'required',
+            'th_masuk' => 'required',
+            'no_telepon' => 'required'
         ]);
 
-        $mahasiswa = Mahasiswa::find($request->id);
-        $mahasiswa->nim = $request->input('nim');
-        $mahasiswa->nama = $request->input('nama');
-        $mahasiswa->th_masuk = $request->input('th_masuk');
-        $mahasiswa->no_telepon = $request->input('no_telepon');
-        $mahasiswa->club_id = $request->input('club');
+        $mahasiswa = Mahasiswa::find($id);
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->nama = $request->nama;
+        $mahasiswa->th_masuk = $request->th_masuk;
+        $mahasiswa->no_telepon = $request->no_telepon;
+        $mahasiswa->club_id = $request->club;
         $mahasiswa->updated_by = auth()->user()->name;
         $mahasiswa->updated_at = Carbon::now();
         $mahasiswa->update();
