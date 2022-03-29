@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/modul/mahasiswa', [MahasiswaController::class, 'store']);
     Route::get('/modul/mahasiswa/add', [MahasiswaController::class, 'create']);
     Route::get('/modul/mahasiswa/edit/{id}', [MahasiswaController::class, 'edit']);
-    Route::post('/modul/mahasiswa/update', [MahasiswaController::class, 'update']);
+    Route::post('/modul/mahasiswa/update/{id}', [MahasiswaController::class, 'update']);
     Route::get('/modul/mahasiswa/delete/{id}', [MahasiswaController::class, 'destroy']);
 });
 

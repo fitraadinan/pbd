@@ -23,42 +23,7 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- <div class="row">
-                        <form action="">
-                            <div class="col-lg-12 mb-1">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Urutkan Berdasarkan</span>
-                                    <select class="form-select" name="orderBy" id="basicSelect">
-                                        <?php if(isset( $_GET['orderBy'])):?>
-                                            <option value="nama" <?php echo $_GET['orderBy']=="nama"?"selected":""?>>Nama Mahasiswa</option>
-                                        <?php else:?>
-                                            <option value="nama">Nama Lab</option>
-                                        <?php endif?>
-                                    </select>
-                                    <select class="form-select" name="jenis" id="basicSelect">
-                                        <?php if(isset( $_GET['jenis'])):?>
-                                            <option value="ASC" <?php echo $_GET['jenis']=="ASC"?"selected":""?>>Ascending</option>
-                                            <option value="DESC" <?php echo $_GET['jenis']=="DESC"?"selected":""?>>Descending</option>
-                                        <?php else:?>
-                                            <option value="ASC">Ascending</option>
-                                            <option value="DESC">Descending</option>
-                                        <?php endif?>
-                                    </select>
-                                    <span class="input-group-text" id="basic-addon1">Cari Berdasarkan Keyword</span>
-                                    <?php if(isset( $_GET['keyword'])):?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                        aria-label="keyword" value="<?php echo  $_GET['keyword']?>"  name="keyword" aria-describedby="basic-addon1">
-                                    <?php else:?>
-                                        <input type="text" class="form-control" placeholder="Masukkan Nama Lab"
-                                        aria-label="keyword"  name="keyword" aria-describedby="basic-addon1">
-                                    <?php endif?>
-                                    
-                                    <button type="submit" class="btn btn-sm btn-primary">Proses</button>    
-                                </div>
-                            </div>
-                        </form>
-                   
-                    </div> --}}
+                    
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>
@@ -91,7 +56,7 @@
                                             <div class="btn-group">
 
                                             <a href="{{ url('/modul/mahasiswa/edit/'.$mahasiswa->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                                <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button> 
+                                                <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete-{{ $mahasiswa->id }}"> <i data-feather="trash" width="20"></i></button> 
 
                                             </div>
                                         </td>
@@ -101,7 +66,7 @@
                         </table>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                    <div class="modal fade" id="modaldelete-{{ $mahasiswa->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -111,7 +76,7 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                            Apakan Anda yakin ingin menghapus data mahasiswa?
+                            Apakan Anda yakin ingin menghapus data mahasiswa atas nama {{ $mahasiswa->nama }}?
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

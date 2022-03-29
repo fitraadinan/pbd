@@ -52,20 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 mb-1">
-                                    {{-- <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Lab</span>
-                                        <select class="form-select" name="lab" id="basicSelect" required>
-                                            <?php
-                                                $data = mysqli_query($koneksi,"select * from lab left join club on lab_idlab=idlab");
-                                                $no = 1;
-                                                while($d = mysqli_fetch_array($data)){
-                                            ?>
-                                                <?php if($d['idclub']==NULL || ($d_club['lab_idlab']==$d['idlab'])):?>
-                                                <option <?php echo $d_club['lab_idlab']==$d['idlab']?"selected":""?> value="<?php echo $d['idlab']?>"><?php echo $d['nama_lab']?></option>
-                                                <?php endif?>
-                                            <?php } ?>
-                                        </select>
-                                    </div> --}}
+                                    
                                 </div>
                         
                         </div>
