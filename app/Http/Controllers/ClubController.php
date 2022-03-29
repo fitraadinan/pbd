@@ -127,7 +127,7 @@ class ClubController extends Controller
     public function destroy($id)
     {
         Club::find($id)->delete();
-        $lab=Lab::find($id)
+        $lab=Lab::find($id);
         return redirect('/modul/club')->with('success', 'Delete Club Successfull.');
     }
 }
