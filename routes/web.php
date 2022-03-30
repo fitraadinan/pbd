@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/modul/club/edit/{id}', [ClubController::class, 'edit']);
     Route::post('/modul/club/update', [ClubController::class, 'update']);
     Route::get('/modul/club/delete/{id}', [ClubController::class, 'destroy']);
+    Route::get('/modul/club/search', [ClubController::class, 'search']);
     
     Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);
     Route::get('/modul/mahasiswa', [MahasiswaController::class, 'index']);

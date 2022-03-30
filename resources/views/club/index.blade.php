@@ -23,6 +23,23 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <form action="/modul/club/search" method="get">
+                            <div class="col-lg-5 mb-1 float-end">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Search</span>
+                                    <input type="text" class="form-control" name="search" value="{{ session('search') }}" placeholder="Masukkan Nama Club/Hari/Nama Lab">
+                                    
+                                    <button type="submit" class="btn btn-sm btn-primary">Proses</button> 
+                                        
+                                </div>
+                            </div>
+                                @if(session()->has('message'))
+                                    <p class="alert {{ session()->get('alert-class', 'alert-info') }} ">{{ session()->get('message') }}</p>
+                                @endif 
+                        </form>
+                   
+                    </div>
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>
@@ -36,17 +53,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($club as $index => $club)
+                                @foreach ($club as $index => $clubs)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $club->club_name }}</td>
-                                        <td>{{ $club->hari }}</td>
-                                        <td>{{ $club->jam }}</td>
-                                        <td>{{ $club->lab->lab_name }}</td>
+                                        <td>{{ $clubs->club_name }}</td>
+                                        <td>{{ $clubs->hari }}</td>
+                                        <td>{{ $clubs->jam }}</td>
+                                        <td>{{ $clubs->lab->lab_name }}</td>
                                         <td>
                                             <div class="btn-group">
 
-                                            <a href="{{ url('/modul/club/edit/'.$club->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
+                                            <a href="{{ url('/modul/club/edit/'.$clubs->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
                                             <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button>  
 
                                             </div>
@@ -62,18 +79,18 @@
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="modaldeleteLabel">Hapus Data Club {{ $club->club_name }}</h5>
+                            <h5 class="modal-title" id="modaldeleteLabel">Hapus Data Club {{ $clubs->club_name }}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             </div>
                             <div class="modal-body">
-                            Apakan Anda yakin ingin menghapus data club {{ $club->club_name }}?
-                            <input type="hidden" name="club" value="{{ $club->id }}">
+                            Apakan Anda yakin ingin menghapus data club {{ $clubs->club_name }}?
+                            <input type="hidden" name="club" value="{{ $clubs->id }}">
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <a href="/modul/club/delete/{{ $club->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
+                            <a href="/modul/club/delete/{{ $clubs->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
                             </div>
                         </div>
                         </div>

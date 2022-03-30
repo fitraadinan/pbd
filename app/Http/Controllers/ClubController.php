@@ -133,4 +133,22 @@ class ClubController extends Controller
         ]);
         return redirect('/modul/club')->with('success', 'Delete Club Successfull.');
     }
+
+    public function search()
+    {
+       
+        $text  = $_GET['search'];
+        session(['search' => $text]);
+        $data = Club::where('club_name', 'LIKE', '%'.$text.'%')->with('lab')
+                    ->orWhere('hari', 'LIKE', '%'.$text.'%')
+                    // ->orWhere('lab_name', 'LIKE', '%'.$text.'%')
+                    ->get();
+        if($data){
+            return view('club.index', ['club' => $data]);
+        } else {
+            session()->flash('message', 'Data tidak valid.'); 
+            session()->flash('alert-class', 'alert-danger'); 
+        }
+        
+    }
 }
