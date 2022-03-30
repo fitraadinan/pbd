@@ -41,22 +41,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($mahasiswa as $index => $mahasiswa)
+                                @foreach ($mahasiswa as $index => $mahasiswas)
                                     <tr>
                                         <td>{{ $index +1 }}</td>
-                                        <td>{{ $mahasiswa->nim }}</td>
-                                        <td>{{ $mahasiswa->nama }}</td>
-                                        <td>{{ $mahasiswa->th_masuk }}</td>
-                                        <td>{{ $mahasiswa->no_telepon }}</td>
-                                        <td>{{ $mahasiswa->club->club_name }}</td>
-                                        <td>{{ $mahasiswa->club->hari }}</td>
-                                        <td>{{ $mahasiswa->club->jam }}</td>
-                                        <td>{{ $mahasiswa->club->lab->lab_name }}</td>
+                                        <td>{{ $mahasiswas->nim }}</td>
+                                        <td>{{ $mahasiswas->nama }}</td>
+                                        <td>{{ $mahasiswas->th_masuk }}</td>
+                                        <td>{{ $mahasiswas->no_telepon }}</td>
+                                        <td>{{ $mahasiswas->club->club_name }}</td>
+                                        <td>{{ $mahasiswas->club->hari }}</td>
+                                        <td>{{ $mahasiswas->club->jam }}</td>
+                                        <td>{{ $mahasiswas->club->lab->lab_name }}</td>
                                         <td>
                                             <div class="btn-group">
 
-                                            <a href="{{ url('/modul/mahasiswa/edit/'.$mahasiswa->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                                <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete-{{ $mahasiswa->id }}"> <i data-feather="trash" width="20"></i></button> 
+                                            <a href="{{ url('/modul/mahasiswa/edit/'.$mahasiswas->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
+                                                <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete-{{ $mahasiswas->id }}"> <i data-feather="trash" width="20"></i></button> 
 
                                             </div>
                                         </td>
@@ -65,8 +65,9 @@
                             </tbody>
                         </table>
                     </div>
+                    @foreach ($mahasiswa as $key => $mahasiswas)                        
                     <!-- Modal -->
-                    <div class="modal fade" id="modaldelete-{{ $mahasiswa->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                    <div class="modal fade" id="modaldelete-{{ $mahasiswas->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -76,16 +77,17 @@
                             </button>
                             </div>
                             <div class="modal-body">
-                            Apakan Anda yakin ingin menghapus data mahasiswa atas nama {{ $mahasiswa->nama }}?
+                                <input type="hidden" name="id" value="{{ $mahasiswas->id }}">
+                            Apakan Anda yakin ingin menghapus data mahasiswa atas nama {{ $mahasiswas->nama }}?
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <a href="/modul/mahasiswa/delete/{{ $mahasiswa->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
+                            <a href="/modul/mahasiswa/delete/{{ $mahasiswas->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
                             </div>
                         </div>
                         </div>
                     </div>
-                    
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -34,15 +34,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($lab as $index => $lab)
+                                @foreach ($lab as $index => $labs)
                                     <tr>
                                         <td>{{ $index +1 }}</td>
-                                        <td>{{ $lab->lab_name }}</td>
+                                        <td>{{ $labs->lab_name }}</td>
                                         <td>
                                             <div class="btn-group">
 
-                                            <a href="{{ url('/modul/lab/edit/'.$lab->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button> 
+                                            <a href="{{ url('/modul/lab/edit/'.$labs->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
+                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldeletelab-{{ $labs->id }}"> <i data-feather="trash" width="20"></i></button> 
 
                                             </div>
                                         </td>
@@ -52,8 +52,10 @@
                         </table>
                     </div>
 
+                    @foreach ($lab as $labs)
+
                      <!-- Modal -->
-                     <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                     <div class="modal fade" id="modaldelete-{{ $labs->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -67,12 +69,12 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <a href="/modul/lab/delete/{{ $lab->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
+                            <a href="/modul/lab/delete/{{ $labs->id }}"><button type="button" class="btn btn-primary">Yakin</button></a>
                             </div>
                         </div>
                         </div>
                     </div>
-
+                    @endforeach
                 </div>
             </div>
         </div>

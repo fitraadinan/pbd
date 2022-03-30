@@ -64,7 +64,7 @@
                                             <div class="btn-group">
 
                                             <a href="{{ url('/modul/club/edit/'.$clubs->id) }}"><button class="btn btn-sm btn-warning"> <i data-feather="edit" width="20"></i></button></a>   
-                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldelete"> <i data-feather="trash" width="20"></i></button>  
+                                            <button class="btn btn-sm btn-danger" id="btn" type="button" data-toggle="modal" data-target="#modaldeleteclub-{{ $clubs->id }}"> <i data-feather="trash" width="20"></i></button>  
 
                                             </div>
                                         </td>
@@ -73,9 +73,10 @@
                             </tbody>
                         </table>
                     </div>
+                    @foreach ($club as $clubs)
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
+                    <div class="modal fade" id="modaldeleteclub-{{ $clubs->id }}" tabindex="-1" role="dialog" aria-labelledby="modaldeleteLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -95,7 +96,8 @@
                         </div>
                         </div>
                     </div>
-
+                        
+                    @endforeach
                 </div>
                 {{-- <div class="card-body px-0 pb-0">
                     <div class="panel mx-4 mb-3">
