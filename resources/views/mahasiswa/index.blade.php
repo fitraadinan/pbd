@@ -45,14 +45,14 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nim</th>
-                                    <th>Nama Mahasiswa</th>
-                                    <th>Tahun Masuk</th>
-                                    <th>Nomor Telepon</th>
-                                    <th>Nama Club</th>
-                                    <th>Hari</th>
-                                    <th>Jam</th>
-                                    <th>Lab</th>
+                                    <th>@sortablelink('nim', 'Nim')</th>
+                                    <th>@sortablelink('nama', 'Nama Mahasiswa')</th>
+                                    <th>@sortablelink('th_masuk', 'Tahun Masuk')</th>
+                                    <th>@sortablelink('no_telepon', 'Nomor Telepon')</th>
+                                    <th>@sortablelink('club.club_name', 'Nama Club')</th>
+                                    <th>@sortablelink('club.hari')</th>
+                                    <th>@sortablelink('club.jam')</th>
+                                    <th>@sortablelink('club.lab_name', 'Lab')</th>
                                     <th>Opsi</th>
                                 </tr>
                             </thead>

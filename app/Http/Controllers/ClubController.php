@@ -24,7 +24,7 @@ class ClubController extends Controller
         // return view('club.index', [
         //     'club' => $club
         // ]);php
-        $club = Club::all();
+        $club = Club::sortable()->paginate(5);
         session()->forget('search');
         return view('club.index', [
             'club' => $club

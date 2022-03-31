@@ -18,7 +18,7 @@ class LabController extends Controller
      */
     public function index()
     {
-        $lab = Lab::all();
+        $lab = Lab::sortable()->paginate(5);
         session()->forget('search');
         return view('lab.index', [
             'lab' => $lab

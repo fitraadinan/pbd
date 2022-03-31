@@ -44,7 +44,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Lab</th>
+                                    <th>@sortablelink('lab_name', 'Nama Lab')</th>
                                     <th>Opsi</th>
                                 </tr>
                             </thead>
@@ -65,6 +65,7 @@
                                     @endforeach
                             </tbody>
                         </table>
+                        {!! $lab->appends(\Request::except('page'))->render() !!}
                     </div>
 
                     @foreach ($lab as $labs)

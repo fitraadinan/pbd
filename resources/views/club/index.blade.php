@@ -45,10 +45,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Club</th>
-                                    <th>Hari</th>
-                                    <th>Jam</th>
-                                    <th>Lab</th>
+                                    <th>@sortablelink('club_name', 'Nama Club')</th>
+                                    <th>@sortablelink('hari')</th>
+                                    <th>@sortablelink('jam')</th>
+                                    <th>@sortablelink('lab.lab_name', 'Lab')</th>
                                     <th>Opsi</th>
                                 </tr>
                             </thead>

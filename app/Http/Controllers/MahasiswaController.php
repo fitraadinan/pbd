@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
         // return view('mahasiswa.index', [
         //     'mahasiswa' => $mahasiswa
         // ]);
-        $mahasiswa = Mahasiswa::with('club')->get();
+        $mahasiswa = Mahasiswa::with('club')->sortable()->paginate(5);
         session()->forget('search');
         return view('mahasiswa.index', [
             'mahasiswa' => $mahasiswa
