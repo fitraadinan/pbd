@@ -37,7 +37,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $mahasiswa = Mahasiswa::with('club')->get();
+        $mahasiswa = Mahasiswa::with('club')->sortable()->paginate(5);
         $club=Club::all();
         return view('mahasiswa.add', [
             'mahasiswa' => $mahasiswa,
@@ -152,12 +152,12 @@ class MahasiswaController extends Controller
             ->orWhere('no_telepon', 'LIKE', '%'.$text.'%')
             ->orWhereRelation('club', 'club_name', 'LIKE', '%'.$text.'%')
             ->orWhereRelation('club', 'hari', 'LIKE', '%'.$text.'%')
-            ->get();
+            ->sortable()->paginate(5);
             return view('mahasiswa.index', ['mahasiswa' => $data]);
         } catch (ModelNotFoundException $e) {
             session()->flash('message', 'Data tidak valid.'); 
             session()->flash('alert-class', 'alert-danger'); 
-            $data = Mahasiswa::all();
+            $data = Mahasiswa::sortable()->paginate(5);
             return view('mahasiswa.index', ['mahasiswa' => $data]);
         }
     }

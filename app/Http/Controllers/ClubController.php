@@ -38,7 +38,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        $club = Club::all();
+        $club = Club::sortable()->paginate(5);
         $lab = Lab::all();
         return view('club.add', [
             'club' => $club,
@@ -146,12 +146,12 @@ class ClubController extends Controller
             $data = Club::where('club_name', 'LIKE', '%'.$text.'%')
             ->orWhere('hari', 'LIKE', '%'.$text.'%')
             ->orWhereRelation('lab', 'lab_name', 'LIKE', '%'.$text.'%')
-            ->get();
+            ->sortable()->paginate(5);
             return view('club.index', ['club' => $data]);
         } catch (ModelNotFoundException $e) {
             session()->flash('message', 'Data tidak valid.'); 
             session()->flash('alert-class', 'alert-danger'); 
-            $data = Club::all();
+            $data = Club::sortable()->paginate(5);
             return view('club.index', ['club' => $data]);
         }
     }

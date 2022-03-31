@@ -117,12 +117,12 @@ class LabController extends Controller
         
         try{
             $data = Lab::where('lab_name', 'LIKE', '%'.$text.'%')
-            ->get();
+            ->sortable()->paginate(5);
             return view('lab.index', ['lab' => $data]);
         } catch (ModelNotFoundException $e) {
             session()->flash('message', 'Data tidak valid.'); 
             session()->flash('alert-class', 'alert-danger'); 
-            $data = Lab::all();
+            $data = Lab::sortable()->paginate(5);
             return view('lab.index', ['lab' => $data]);
         }
     }
