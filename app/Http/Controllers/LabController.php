@@ -7,6 +7,7 @@ use App\Models\Lab;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreLabRequest;
 use App\Http\Requests\UpdateLabRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LabController extends Controller
 {
@@ -18,6 +19,7 @@ class LabController extends Controller
     public function index()
     {
         $lab = Lab::all();
+        session()->forget('search');
         return view('lab.index', [
             'lab' => $lab
         ]);
@@ -105,5 +107,23 @@ class LabController extends Controller
     {
         Lab::where('id', $id)->delete();
         return redirect('/modul/lab')->with('success', 'Delete Lab Successfull!');
+    }
+
+    public function search()
+    {
+       
+        $text  = $_GET['search'];
+        session()->put(['search' => $text]);
+        
+        try{
+            $data = Lab::where('lab_name', 'LIKE', '%'.$text.'%')
+            ->get();
+            return view('lab.index', ['lab' => $data]);
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', 'Data tidak valid.'); 
+            session()->flash('alert-class', 'alert-danger'); 
+            $data = Lab::all();
+            return view('lab.index', ['lab' => $data]);
+        }
     }
 }

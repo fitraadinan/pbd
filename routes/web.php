@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/modul/lab/edit/{id}', [LabController::class, 'edit']);
     Route::post('/modul/lab/update', [LabController::class, 'update']);
     Route::get('/modul/lab/delete/{id}', [LabController::class, 'destroy']);
+    Route::get('/modul/lab/search', [LabController::class, 'search']);
 
     Route::get('/modul/club', [ClubController::class, 'index']);
     Route::post('/modul/club', [ClubController::class, 'store']);
@@ -46,5 +47,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/modul/mahasiswa/edit/{id}', [MahasiswaController::class, 'edit']);
     Route::post('/modul/mahasiswa/update/{id}', [MahasiswaController::class, 'update']);
     Route::get('/modul/mahasiswa/delete/{id}', [MahasiswaController::class, 'destroy']);
+    Route::get('/modul/mahasiswa/search', [MahasiswaController::class, 'search']);
 });
 

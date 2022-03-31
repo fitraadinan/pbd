@@ -38,8 +38,8 @@
                                     <p class="alert {{ session()->get('alert-class', 'alert-info') }} ">{{ session()->get('message') }}</p>
                                 @endif 
                         </form>
-                   
                     </div>
+                    
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>

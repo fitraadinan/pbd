@@ -23,7 +23,23 @@
                 </div>
 
                 <div class="card-body">
-                    
+                    <div class="row">
+                        <form action="/modul/mahasiswa/search" method="get">
+                            <div class="col-lg-5 mb-1 float-end">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Search</span>
+                                    <input type="text" class="form-control" name="search" value="{{ session('search') }}" placeholder="Masukkan Nama Mahasiswa/Tahun Masuk/NIM">
+                                    
+                                    <button type="submit" class="btn btn-sm btn-primary">Proses</button> 
+                                        
+                                </div>
+                            </div>
+                                @if(session()->has('message'))
+                                    <p class="alert {{ session()->get('alert-class', 'alert-info') }} ">{{ session()->get('message') }}</p>
+                                @endif 
+                        </form>
+                    </div>
+
                     <div class="table table-responsive">
                         <table class='table table-striped' id="table1"> 
                             <thead>

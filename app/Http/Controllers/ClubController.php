@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClubRequest;
 use App\Http\Requests\UpdateClubRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ClubController extends Controller
 {
@@ -24,6 +25,7 @@ class ClubController extends Controller
         //     'club' => $club
         // ]);php
         $club = Club::all();
+        session()->forget('search');
         return view('club.index', [
             'club' => $club
         ]);
@@ -138,17 +140,19 @@ class ClubController extends Controller
     {
        
         $text  = $_GET['search'];
-        session(['search' => $text]);
-        $data = Club::where('club_name', 'LIKE', '%'.$text.'%')->with('lab')
-                    ->orWhere('hari', 'LIKE', '%'.$text.'%')
-                    // ->orWhere('lab_name', 'LIKE', '%'.$text.'%')
-                    ->get();
-        if($data){
+        session()->put(['search' => $text]);
+        
+        try{
+            $data = Club::where('club_name', 'LIKE', '%'.$text.'%')
+            ->orWhere('hari', 'LIKE', '%'.$text.'%')
+            ->orWhereRelation('lab', 'lab_name', 'LIKE', '%'.$text.'%')
+            ->get();
             return view('club.index', ['club' => $data]);
-        } else {
+        } catch (ModelNotFoundException $e) {
             session()->flash('message', 'Data tidak valid.'); 
             session()->flash('alert-class', 'alert-danger'); 
+            $data = Club::all();
+            return view('club.index', ['club' => $data]);
         }
-        
     }
 }

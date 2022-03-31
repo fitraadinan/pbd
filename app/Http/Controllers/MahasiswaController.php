@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MahasiswaController extends Controller
 {
@@ -23,6 +24,7 @@ class MahasiswaController extends Controller
         //     'mahasiswa' => $mahasiswa
         // ]);
         $mahasiswa = Mahasiswa::with('club')->get();
+        session()->forget('search');
         return view('mahasiswa.index', [
             'mahasiswa' => $mahasiswa
         ]);
@@ -135,5 +137,28 @@ class MahasiswaController extends Controller
     {
         Mahasiswa::find($id)->delete();
         return redirect('/modul/mahasiswa')->with('success', 'Delete Mahasiswa Successfull.');
+    }
+
+    public function search()
+    {
+       
+        $text  = $_GET['search'];
+        session()->put(['search' => $text]);
+        
+        try{
+            $data = Mahasiswa::where('nama', 'LIKE', '%'.$text.'%')
+            ->orWhere('th_masuk', 'LIKE', '%'.$text.'%')
+            ->orWhere('nim', 'LIKE', '%'.$text.'%')
+            ->orWhere('no_telepon', 'LIKE', '%'.$text.'%')
+            ->orWhereRelation('club', 'club_name', 'LIKE', '%'.$text.'%')
+            ->orWhereRelation('club', 'hari', 'LIKE', '%'.$text.'%')
+            ->get();
+            return view('mahasiswa.index', ['mahasiswa' => $data]);
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', 'Data tidak valid.'); 
+            session()->flash('alert-class', 'alert-danger'); 
+            $data = Mahasiswa::all();
+            return view('mahasiswa.index', ['mahasiswa' => $data]);
+        }
     }
 }
